@@ -48,7 +48,7 @@ We can simply connect with this command:
 $ ssh <username>@<dns>
 ```
 
-If you want to allow other people to connect via SSH, you can log into the VM as admin and save their private key inside ~/.ssh/authorized_keys.
+If you want to allow other people to connect via SSH, you can log into the VM as admin and save their public key inside ~/.ssh/authorized_keys.
 
 ### [Password Login](https://stadicus.github.io/RaspiBolt/raspibolt_21_security.html#disable-password-login)
 
@@ -103,7 +103,7 @@ $ sudo apt install fail2ban
 
 We previously set up the UFW, so we need to disable it otherwise, since traffics are restricted, updating package sources might not work.
 
-\_Note: we will disable UFW some time in order to download/install other softwares
+_Note: we will disable UFW some time in order to download/install other softwares_
 
 ```bash
 $ sudo ufw disable
@@ -323,6 +323,8 @@ $ sha256sum go1.13.linux-amd64.tar.gz | awk -F " " '{ print $1 }'
 
 $ tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
 ```
+
+Setting environment variables permanently.
 
 ```bash
 # ~/.bashrc or ~/.zshrc if you are using zsh
