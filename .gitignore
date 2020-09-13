@@ -1,1 +1,6 @@
 *.sh
+
+node_modules
+dist
+.cache
+.env
