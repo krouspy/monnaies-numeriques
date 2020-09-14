@@ -17,7 +17,6 @@ export default () => {
         <input type="hidden" name="currency" value="USD" />
         <input type="image" src="http://localhost:8080/img/paybutton/pay.svg"></input>
       </form>
-      <h2>Or with Lightning for faster transactions</h2>
     </div>
   );
 };

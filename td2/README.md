@@ -2,7 +2,7 @@
 
 This PW follows this [tutorial](https://docs.btcpayserver.org/ManualDeployment/).
 
-The objectives of this PW is to plug in [BTCPay server](https://github.com/btcpayserver/btcpayserver) on top of our bitcoin node we set up previously in the [PW1](https://github.com/krouspy/monnaies-numeriques/tree/master/td1). By using this tool, we will be able to receive and secure payments on-chain and off-chain without any third-party. We will also install [NBXplorer](https://github.com/dgarage/NBXplorer), an UTXO tracker and finally, we will create a very simple interface in React.
+The objectives of this PW is to plug in [BTCPay server](https://github.com/btcpayserver/btcpayserver) on top of our bitcoin node we set up previously in the [PW1](https://github.com/krouspy/monnaies-numeriques/tree/master/td1) in order to receive and secure payments on-chain and off-chain without any third-party. We will also install [NBXplorer](https://github.com/dgarage/NBXplorer), an UTXO tracker and finally, we will create a very simple interface in React.
 
 ### Environment
 
@@ -466,9 +466,7 @@ Now you can run `yarn start` and we can check the interface at `localhost:1234`.
 
 ![alt front](./assets/front.png 'Front')
 
-The green button corresponds to the Pay Button for on-chain payments and clicking on it will create an invoice.
-
-_**Note**: The lightning button is not still here, we will check it later._
+The green button corresponds to the Pay Button, clicking on it will create an invoice.
 
 Previously, in the PW1, we deposited some tBTC on our bitcoin node so we can use it to pay the invoice.
 
@@ -525,13 +523,23 @@ autopilot.maxchannels=5
 autopilot.allocation=0.6
 ```
 
-Now go to your `Store settings > Lightning nodes > Modify > Connection string`
-
-Get the `certthumbprint`
+Recreate the lnd `certthumbprint`.
 
 ```bash
+$ sudo supervisorctl stop lnd
+$ rm ~/.lnd/tls.cert
+$ rm ~/.lnd/tls.key
+$ sudo supervisorctl start lnd
 $ openssl x509 -noout -fingerprint -sha256 -in .lnd/tls.cert | sed -e 's/.*=//;s/://g'
 ```
+
+And also unlock lnd.
+
+```bash
+$ lncli -n=testnet unlock
+```
+
+Now go to your `Store settings > Lightning nodes > Modify > Connection string`
 
 Then enter this for the connection string
 
@@ -540,3 +548,5 @@ Then enter this for the connection string
 Test Connection > Error while connecting to the API (The HTTP status code of the response was not expected (404).)
 
 Don't know how to fix this :( Maybe a dumb mistake. Make a PR if you know :)
+
+But normally, if it works you should see a lightning payment option in your invoice.
