@@ -433,7 +433,6 @@ export default () => {
           src="http://localhost:8080/img/paybutton/pay.svg"
         ></input>
       </form>
-      <h2>Or with Lightning for faster transactions</h2>
     </div>
   );
 };
