@@ -100,6 +100,7 @@ Geth listens peers on port `30303` and we set the RPC api on port `8545`.
 
 ```bash
 $ sudo ufw allow 30303 comment 'allow geth'
+$ sudo ufw enable
 ```
 
 #### Deploy smart contract
