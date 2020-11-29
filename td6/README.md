@@ -279,17 +279,17 @@ Also update the migrations. When debugging in local, we need to deploy the `ERC2
 
 ```javascript
 // contracts/2_deploy_contracts.js
-const ERC20TD = artifacts.require("ERC20TD");
-const DepositorContract = artifacts.require("DepositorContract");
+const ERC20TD = artifacts.require('ERC20TD');
+const DepositorContract = artifacts.require('DepositorContract');
 
 const initialSupply = 10000;
-const teacherERC20Address = "0x58e9b79f804ebd4a3109068e1be414d0baac18ec";
+const teacherERC20Address = '0x58e9b79f804ebd4a3109068e1be414d0baac18ec';
 
 module.exports = (deployer, network) => {
-  if (network === "rinkeby") {
+  if (network === 'rinkeby') {
     deployer.deploy(DepositorContract, teacherERC20Address);
   } else {
-    deployer.deploy(ERC20TD, initialSupply).then(async (erc20) => {
+    deployer.deploy(ERC20TD, initialSupply).then(async erc20 => {
       await deployer.deploy(DepositorContract, erc20.address);
     });
   }
@@ -359,7 +359,7 @@ function transferFrom(address sender, address recipient, uint256 amount) public 
 }
 ```
 
-So we just need to do `erc20td.approve("0xA5557641fEa464cd27d61F31955a9EE726fcE6E5")` and the deposit function is like that:
+So we just need to do `erc20td.approve("0xA5557641fEa464cd27d61F31955a9EE726fcE6E5", amount)` and the deposit function is like that:
 
 ```javascript
 // contracts/DepositorContract.sol
@@ -374,7 +374,7 @@ function depositMyTokens(uint256 amount) public {
 
 > Instruction: Create and deploy an ERC20 (DepositorToken) to track user deposit. This ERC20 should be mintable and mint autorization given to DepositorContract
 
-Here's the DepositorToken contract. The deploy is done at next step.
+Here's the DepositorToken contract. The deployment is done at next step.
 
 ```javascript
 // contracts/DepositorToken.sol
@@ -412,7 +412,7 @@ contract DepositorToken is ERC20, Ownable {
 
 > Instruction: Update the deposit function so that user balance is tokenized. When a deposit is made in DepositorContract, tokens are minted in DepositorToken and transfered to the address depositing. The deposit can be claimed by sending DepositorToken back to DepositorContract, who then burns them
 
-Since we made changes to DepositorContract, we will redeploy it so we change also update our DepositorToken. We will need to set the depositor contract address manually (or in the migrations).
+Since we made changes to DepositorContract, we will redeploy it so we change also update our DepositorToken. We will need to set the depositor contract address manually (like in migrations).
 
 ```javascript
 // contracts/DepositorToken.sol
@@ -521,18 +521,18 @@ contract DepositorContract {
 Also update migrations so that it takes into account our changes.
 
 ```javascript
-const ERC20TD = artifacts.require("ERC20TD");
-const DepositorContract = artifacts.require("DepositorContract");
-const DepositorToken = artifacts.require("DepositorToken");
+const ERC20TD = artifacts.require('ERC20TD');
+const DepositorContract = artifacts.require('DepositorContract');
+const DepositorToken = artifacts.require('DepositorToken');
 
 const initialSupply = 10000;
-const teacherERC20Address = "0x58e9b79f804ebd4a3109068e1be414d0baac18ec";
+const teacherERC20Address = '0x58e9b79f804ebd4a3109068e1be414d0baac18ec';
 
 module.exports = (deployer, network) => {
-  if (network === "rinkeby") {
+  if (network === 'rinkeby') {
     deployer
       .deploy(DepositorToken)
-      .then(async (depositorToken) => {
+      .then(async depositorToken => {
         const depositorContract = await deployer.deploy(
           DepositorContract,
           teacherERC20Address,
@@ -548,7 +548,7 @@ module.exports = (deployer, network) => {
   } else {
     deployer
       .deploy(ERC20TD, initialSupply)
-      .then(async (erc20) => {
+      .then(async erc20 => {
         const depositorToken = await deployer.deploy(DepositorToken);
         return { erc20, depositorToken };
       })
