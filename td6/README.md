@@ -577,10 +577,8 @@ Here are the contract both viewable on etherscan: [DepositorContract](https://ri
 
 ### Verify and Publish
 
-For this step, Etherscan doesn't seem to work. I'm just getting a blank screen.
+For this step, Etherscan doesn't seem to work. I'm just getting a blank screen. But here's the [tutorial](https://medium.com/coinmonks/how-to-verify-and-publish-on-etherscan-52cf25312945) I intended to follow.
 
 <div style="display: flex; justify-content: center; align-items: center; margin: 30px 0">
   <img src='./assets/verify-publish.png' alt='verify-publish' width=75% />
 </div>
-
-But here's the [tutorial](https://medium.com/coinmonks/how-to-verify-and-publish-on-etherscan-52cf25312945) I intended to follow.
