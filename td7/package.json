@@ -1,0 +1,21 @@
+{
+  "name": "td7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "truffle compile",
+    "develop": "truffle develop",
+    "console:rinkeby": "truffle console --network rinkeby",
+    "deploy:rinkeby": "truffle migrate --network rinkeby --reset"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.3.0",
+    "@truffle/hdwallet-provider": "^1.2.0",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "dotenv": "^8.2.0",
+    "solc": "0.6.6",
+    "truffle": "^5.1.56"
+  }
+}
